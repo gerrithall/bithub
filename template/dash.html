@@ -1,0 +1,64 @@
+{include file="header.html"}
+{include file="page-header.html"}
+<div class='container'>
+  <div class='row'>
+  	<div class='twelve columns centered' style='margin-top: 30px;'>
+		<h1>Dashboard</h1>
+	</div>
+  </div>
+
+  <div class='row'>
+  	<div class='twelve columns centered'>
+		<table class='dash'>
+		<tr><th style='padding: 5px;'>Repo</th><th>Notes</th><th>Status</th></tr>
+{foreach from=$repos item="r"}
+			<tr>
+			  <td style='padding: 5px;'><a target='_blank' style='color: #B3E5FC' href='{$r.url}'> {$r.fullname}</a></td>
+			  {if $r.status == 4}
+			  <td>
+			  	<a href='https://www.coinprism.info/tx/{$r.transaction_hash}' target='_blank'>Minted!</a>
+			  </td>
+			   <td>
+			  	<a class='button' href='/mint/{$r.fullname}'>View</a>
+			  </td>
+
+			  {elseif $r.status == 3}
+			  <td>
+			  	<a href='https://www.coinprism.info/tx/{$r.transaction_hash}' target='_blank'>View Progress</a>
+			  </td>
+			  <td>
+			  	<a class='button' href='/mint/{$r.fullname}'>Coloring</a>
+			  </td>
+			  {elseif $r.status == 2}
+			  <td>
+			  	<a target='_blank' href='http://btc.blockr.io/tx/info/{$r.transaction_hash}'>Transaction detected.</a>  {$r.confirmations} confirmation{if $r.confirmations != 1}s{/if} out of 6 necessary.
+			  </td>
+			  <td>
+			  	<a class='button' href='/mint/{$r.fullname}'>Confirming</a>
+			  </td>	
+			  {elseif $r.status}
+			  <td>
+				Receiving BTC at {$r.address}
+			  </td>
+			  <td>
+			  	<a class='button' href='/mint/{$r.fullname}'>Pending</a>
+			  </td>
+			  {else}
+			  <td>
+			  	
+			  </td>
+			  <td>
+			  	<a class="button button-primary" href='/mint/{$r.fullname}'>Mint Coin</a>
+			  </td>
+
+			  {/if}
+			  </td>
+			</tr>
+{/foreach}
+		</table>
+	</div>
+  </div>
+
+
+
+{include file="footer.html"}

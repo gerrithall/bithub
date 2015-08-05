@@ -1,0 +1,12 @@
+RewriteEngine On
+
+RewriteCond %{HTTP_HOST} ^www.rezscore.com$ [NC]
+RewriteRule ^(.*)$ http://rezscore.com/$1 [R=301,L]
+
+RewriteRule ^(favicon.ico)$ - [PT] 
+#RewriteRule ^(robots.txt)$ - [PT]
+RewriteRule ^(emailreg124c8aaf28c14ce2.htm)$ - [PT]
+RewriteRule ^(googlef60e46fcde489bb0.html)$ - [PT]
+#RewriteRule ^(sitemap_index.xml)$ - [PT]
+RewriteRule ^(BingSiteAuth.xml)$ - [PT]
+RewriteRule ^(.*)$ index.php?fullurl=$1 [L,QSA]

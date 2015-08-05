@@ -1,0 +1,91 @@
+{include file="header.html"}
+{include file="page-header.html"}
+<div class='container'>
+  <div class='row'>
+  	<div class='twelve columns centered'>
+		<h1>{$project_name}</h1>
+   		<h2>Mint Your Coin</h2>
+	</div>
+  </div>
+   <div class='row'>
+   {if $repo.status == 4}
+ 	<div class='twelve columns centered'>
+		Coin minted on {$date_minted} <br/>
+		<a href='http://btc.blockr.io/tx/info/{$asset_hash}' target='_blank'>{$asset_hash}</a>
+		<br/><br/>
+
+		<strong>Top Earners:</strong>
+		<center>
+		<table class='commits'>
+
+		{if $equity}
+			{foreach from=$equity item="g" key="k"}
+			<tr><td>{$k}</td><td>{$g}%</td></tr>
+			{/foreach}
+		{else}
+			<tr><td><strong>Nobody 
+
+			   	<span class='failure'><i class='fa fa-frown-o fa-2x'></i></span>
+			</strong>
+			<br/><br/>There have been no commits since the coin was minted
+			
+			</td></tr>
+		{/if}
+		</table>
+		
+		</center>
+		<hr>
+		<center><strong>History</strong>
+		<table class='commits' width='100%'>
+	 	  <tr>
+		  	<th></th>
+		{foreach from=$contributors item="g" key="k"}
+			<th>{$k}</th>
+		{/foreach}
+		  </tr>
+		{foreach from=$cal item="g" key="k"}
+		  <tr {if $k eq $today}class='today'{/if}>
+			<td>{$k}</td>
+			{foreach from=$contributors item="g2" key="k2"}
+			<td>
+			   {if $g.$k2 >0}
+			  	<span class='success'><i class='fa fa-smile-o fa-2x'></i></span>
+			   {else}
+			   	<span class='failure'><i class='fa fa-frown-o fa-2x'></i></span>
+			   {/if}
+			</td>
+			{/foreach}
+		  </tr>
+		{/foreach}
+	</table></center>
+	</div>
+   {elseif $repo.status == 3}
+   	<div class='twelve columns centered'>
+	Transaction Confirmed!  Minting your coin.
+	</div>
+   {elseif $hash}
+   	<div class='twelve columns centered'>
+	Transaction detected... {$status} confirmation{if $status != 1}s{/if} detected (6 necessary).
+	<br/><br/>
+	<a href='http://btc.blockr.io/tx/info/{$hash}' target='_blank'>Blockchain : {$hash}</a>
+	</div>
+
+   {else}
+  	<div class='four columns centered'>
+		<h3>1.</h3>
+		Send BTC to {$btc_address} (minimum .01).
+	</div>
+   	<div class='four columns centered'>
+		<h3>2.</h3>
+		We'll create a colored coin especially for your project.
+	</div>
+	<div class='four columns centered'>
+		<h3>3.</h3>
+		This coin will automatically be to contributors next 30 days. 
+	</div>
+	{/if}
+
+  </div>
+  
+
+{include file="footer.html"}

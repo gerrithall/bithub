@@ -1,0 +1,134 @@
+/*
+* Custom CSS
+*
+*/
+
+form input {
+	color: #212121;
+}
+
+h1 {
+	color: #FFF;
+}
+h2 {
+	color: #FFF;
+}
+.head {
+	background-color: #0097A7;
+}
+.faq {
+	background-color: #b2ebf2;
+	padding: 20px;
+	color: #212121;
+}
+.faq H2 {
+	color: #FF9800;
+}
+.faq strong {
+	color: #FF9800;
+	font-size: 18px;
+}
+.faq A {
+	color: #00BCD4;
+}
+.homeinput {
+	background-color: #00838F; 
+	color: #FFF;
+	font-size: 16px;
+	padding-top: 20px;
+	padding-bottom: 20px;
+
+}
+.homeinput div {
+	margin-top: 20px;
+
+}
+
+.homeinput .button span {
+	font-style: normal;
+	line-height: 30px;
+	font-size: 14px;
+	vertical-align: center;
+	padding-bottom: 10px;
+}
+.apis {
+	background-color: #0097A7;
+	padding: 20px;
+}
+.apis h2 {
+	color: #B2EBF2;
+}
+.apis .columns {
+	background-color: #FFF;
+	min-height: 105px;
+	padding: 20px;
+	vertical-align: middle
+}
+.logo {
+	font-weight: bold;
+	color: #FFF;
+	font-size: 24px;
+	text-decoration: none;
+}
+.homeinput i {
+	color: #B3E5Fc;
+}
+form div {
+	padding: 10px;
+}
+hr.main {
+    height: 30px;
+    border-style: solid;
+    border-color: #B6B6B6;
+    border-width: 1px 0 0 0;
+    border-radius: 20px;
+}
+hr.main:before { /* Not really supposed to work, but does */
+    display: block;
+    content: "";
+    height: 30px;
+    margin-top: -31px;
+    border-style: solid;
+    border-color: #B6B6B6;
+    border-width: 0 0 1px 0;
+    border-radius: 20px;
+}
+hr.sub {border: 0; height: 0; border-top: 1px solid rgba(0, 0, 0, 0.1); border-bottom: 1px solid rgba(255, 255, 255, 0.3);}
+
+.dash {
+	background-color: #0097A7;
+	width: 100%;
+	text-align: center;
+}
+.dash th { text-align: center;}
+.dash td { text-align: center;}
+.commits {
+	color: #000;
+	background-color: #b2ebf2;
+	min-width: 400px;
+}
+.commits .today {
+	background-color: #81d4fa;
+}
+.commits .success {
+	color: #4CAF50;
+}
+.commits .failure {
+	color: #f44336;
+}
+.commits .success i {
+	color: #4CAF50;
+}
+.commits .failure i {
+	color: #f44336;
+}
+
+.commits th {
+	text-align: center;
+}
+.commits td {
+	
+	padding-left: 20px;
+	padding-right: 20px;
+	text-align: center;
+}

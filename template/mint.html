@@ -5,6 +5,8 @@
   	<div class='twelve columns centered'>
 		<h1>{$project_name}</h1>
    		<h2>Mint Your Coin</h2>
+		<a href='http://github.com/{$project_name}' target='_blank'><i class='fa fa-github'></i> {$project_name}</a>
+
 	</div>
   </div>
    <div class='row'>
@@ -27,7 +29,7 @@
 
 			   	<span class='failure'><i class='fa fa-frown-o fa-2x'></i></span>
 			</strong>
-			<br/><br/>There have been no commits since the coin was minted
+			<br/><br/>There have been no commits detected since the coin was minted.  {if $last_commit}The last detected commit was {$last_commit}.{/if}
 			
 			</td></tr>
 		{/if}

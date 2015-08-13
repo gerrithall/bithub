@@ -3,6 +3,7 @@
 	<br/><br/>
   <div class='row'>
   	<div class='twelve columns centered'>
+		<img src='/images/Logo3.png' width='150' height='150' >
 		<h1>BitHub</h1>
 		<h3>Colored Coins for Coders</h3>
 	</div>
@@ -21,10 +22,31 @@
 		<i class="fa fa-smile-o fa-5x"></i><br/>
 		Bring color to coding projects
 	</div>
-	<div class='twelve columns centered'>
+    </div>
+    <div class='row homeinput'>
+	<div class='six columns centered'>
 
-	<br/><br/>
-		<a class="button button-primary" href="https://github.com/login/oauth/authorize?client_id={$smarty.const.GITHUB_CLIENTID}&redirect_uri={$github_redirect|escape:'url'}&scope=user,repo,read:org">
+		Repository Access:
+		<select id='permission' style='background-color: #777;'>
+		    <option value="repo" selected="selected">All</option>
+		    <option value="public_repo">Public Only</option>
+		</select>
+{literal}
+<script>
+$( "#permission" )
+  .change(function () {
+    var str = "";
+    $( "select option:selected" ).each(function() {
+      str += "https://github.com/login/oauth/authorize?client_id={/literal}{$smarty.const.GITHUB_CLIENTID}{literal}&redirect_uri={/literal}{$github_redirect|escape:'url'}{literal}&scope=user," + $( this ).val() + ",read:org";
+    });
+    $( "#login-button" ).attr("href", str );
+  })
+  .change();
+</script>
+{/literal}
+	</div>
+	<div class='six columns centered'>
+		<a id='login-button' class="button button-primary" href="https://github.com/login/oauth/authorize?client_id={$smarty.const.GITHUB_CLIENTID}&redirect_uri={$github_redirect|escape:'url'}&scope=user,repo,read:org">
 			<i style='color: #FFF;' class="fa fa-github fa-3x"></i> <span>Login with GitHub</span>
 		</a>
 	</div>
@@ -38,16 +60,18 @@
   <div class='row'>
   	<div class='twelve columns centered'>
   		<h2>Featured Projects</h2>
+  		<h3>Click to view coin details</h3>
 	</div>
   </div>
   <div class='row'>
   	{foreach from=$featured item="g"}
   	<div class='three columns centered'>
-		<a href='/mint/{$g.name}' target="_blank">
+		{if $g.public}<a href='/mint/{$g.name}' style='text-decoration: none;'>{/if}
 		<img src='{$g.icon_url}' class='u-max-full-width'><br/>
+		{if !$g.public}<i class='fa fa-lock'></i>{/if}
+		({$g.contributors})	
 		{$g.name}
-
-		</a>
+		{if $g.public}</a>{else}{/if} <a href='http://github.com/{$g.name}' target='_blank'><i class='fa fa-github'></i></a>
 	</div>
 	{/foreach}
   </div>
@@ -109,7 +133,6 @@
 	</div>
 
 </div>
-
 </div>
 
 {include file="footer.html"}

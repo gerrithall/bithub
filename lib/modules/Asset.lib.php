@@ -239,7 +239,7 @@ class Asset {
 		return($ret);
 	}
 	public function sniff_assets() {
-		$q = query("SELECT * FROM asset WHERE status != 1 AND transaction_hash != ''");
+		$q = query("SELECT * FROM asset WHERE status =0 AND transaction_hash != ''");
 		while($r = fa($q)) {
 			$hash = $r['transaction_hash'];
 			if(substr($hash,0,1) == '"' && substr($hash,-1,1) == '"') $hash = substr($hash,1,strlen($hash)-2);

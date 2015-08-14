@@ -4,7 +4,7 @@
   <div class='row'>
   	<div class='twelve columns centered'>
 		<h1>{$project_name}</h1>
-   		<h2>Mint Your Coin</h2>
+   		<h2>{if $repo.status == 4}Join the Project{else}Mint Your Coin{/if}</h2>
 		<a href='http://github.com/{$project_name}' target='_blank'><i class='fa fa-github'></i> {$project_name}</a>
 
 	</div>

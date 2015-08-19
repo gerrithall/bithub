@@ -3,7 +3,7 @@
 	<br/><br/>
   <div class='row'>
   	<div class='twelve columns centered'>
-		<img src='/images/Logo3.png' width='150' height='150' >
+		<img src='/images/logo.png' width='150' height='150' >
 		<h1>BitHub</h1>
 		<h3>Colored Coins for Coders</h3>
 	</div>
@@ -37,7 +37,7 @@ $( "#permission" )
   .change(function () {
     var str = "";
     $( "select option:selected" ).each(function() {
-      str += "https://github.com/login/oauth/authorize?client_id={/literal}{$smarty.const.GITHUB_CLIENTID}{literal}&redirect_uri={/literal}{$github_redirect|escape:'url'}{literal}&scope=user," + $( this ).val() + ",read:org";
+      str += "https://github.com/login/oauth/authorize?client_id={/literal}{$smarty.const.GITHUB_CLIENTID}{literal}&redirect_uri={/literal}{$github_redirect|escape:'url'}{literal}&scope=user:email," + $( this ).val() + ",read:org";
     });
     $( "#login-button" ).attr("href", str );
   })
@@ -46,7 +46,7 @@ $( "#permission" )
 {/literal}
 	</div>
 	<div class='six columns centered'>
-		<a id='login-button' class="button button-primary" href="https://github.com/login/oauth/authorize?client_id={$smarty.const.GITHUB_CLIENTID}&redirect_uri={$github_redirect|escape:'url'}&scope=user,repo,read:org">
+		<a id='login-button' class="button button-primary" href="https://github.com/login/oauth/authorize?client_id={$smarty.const.GITHUB_CLIENTID}&redirect_uri={$github_redirect|escape:'url'}&scope=user:email,read:org">
 			<i style='color: #FFF;' class="fa fa-github fa-3x"></i> <span>Login with GitHub</span>
 		</a>
 	</div>

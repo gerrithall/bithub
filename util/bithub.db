@@ -1,0 +1,225 @@
+-- MySQL dump 10.13  Distrib 5.5.43, for debian-linux-gnu (x86_64)
+--
+-- Host: localhost    Database: bithub
+-- ------------------------------------------------------
+-- Server version	5.5.43-0+deb8u1
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8 */;
+/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
+/*!40103 SET TIME_ZONE='+00:00' */;
+/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+
+--
+-- Table structure for table `address`
+--
+
+DROP TABLE IF EXISTS `address`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `address` (
+  `address_id` int(11) NOT NULL AUTO_INCREMENT,
+  `asset_id` int(11) NOT NULL,
+  `date_created` datetime NOT NULL,
+  `status` varchar(25) NOT NULL,
+  `callback_url` varchar(1000) NOT NULL,
+  `input_address` varchar(1000) NOT NULL,
+  `destination` varchar(1000) NOT NULL,
+  `fee_percent` varchar(1000) NOT NULL,
+  `secret` varchar(1000) NOT NULL,
+  `repo` varchar(1000) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  PRIMARY KEY (`address_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `asset`
+--
+
+DROP TABLE IF EXISTS `asset`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `asset` (
+  `asset_id` int(11) NOT NULL AUTO_INCREMENT,
+  `public_id` varchar(500) NOT NULL,
+  `name_short` varchar(500) NOT NULL,
+  `name` varchar(5000) NOT NULL,
+  `contract_url` varchar(5000) NOT NULL,
+  `issuer` varchar(5000) NOT NULL,
+  `description` varchar(5000) NOT NULL,
+  `description_mime` varchar(500) NOT NULL,
+  `type` varchar(500) NOT NULL,
+  `divisibility` int(100) NOT NULL,
+  `link_to_website` varchar(1000) NOT NULL,
+  `icon_url` varchar(1000) NOT NULL,
+  `image_url` varchar(1000) NOT NULL,
+  `version` varchar(500) NOT NULL,
+  `date_created` datetime NOT NULL,
+  `transaction_hash` varchar(1000) NOT NULL,
+  `status` int(11) NOT NULL,
+  `confirmations` int(11) NOT NULL,
+  PRIMARY KEY (`asset_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `commit_log`
+--
+
+DROP TABLE IF EXISTS `commit_log`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `commit_log` (
+  `commit_id` int(11) NOT NULL AUTO_INCREMENT,
+  `repo` varchar(1000) NOT NULL,
+  `username` varchar(1000) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `repo_id` int(11) NOT NULL,
+  `commit_date` datetime NOT NULL,
+  `log_date` datetime NOT NULL,
+  `commit_url` varchar(1000) NOT NULL,
+  `sha` varchar(55) NOT NULL,
+  PRIMARY KEY (`commit_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=60 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `cron_log`
+--
+
+DROP TABLE IF EXISTS `cron_log`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `cron_log` (
+  `cron_id` int(11) NOT NULL AUTO_INCREMENT,
+  `start` datetime NOT NULL,
+  `stop` datetime NOT NULL,
+  `script` varchar(255) NOT NULL,
+  `exec_time` varchar(255) NOT NULL,
+  `output` text NOT NULL,
+  `user` varchar(50) NOT NULL,
+  PRIMARY KEY (`cron_id`)
+) ENGINE=MyISAM AUTO_INCREMENT=49294 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `incoming`
+--
+
+DROP TABLE IF EXISTS `incoming`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `incoming` (
+  `incoming_id` int(11) NOT NULL AUTO_INCREMENT,
+  `date_created` datetime NOT NULL,
+  `value` int(11) NOT NULL,
+  `input_address` varchar(1000) NOT NULL,
+  `confirmations` int(11) NOT NULL,
+  `transaction_hash` varchar(1000) NOT NULL,
+  `input_transaction_hash` varchar(1000) NOT NULL,
+  `destination_address` varchar(1000) NOT NULL,
+  `secret` varchar(1000) NOT NULL,
+  PRIMARY KEY (`incoming_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `repo`
+--
+
+DROP TABLE IF EXISTS `repo`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `repo` (
+  `repo_id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(500) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `address` varchar(1000) NOT NULL,
+  `status` int(11) NOT NULL COMMENT '1 address, 2 incoming, 3 confirmed',
+  `status_date` datetime NOT NULL,
+  `public` int(3) NOT NULL,
+  PRIMARY KEY (`repo_id`),
+  UNIQUE KEY `name` (`name`)
+) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `tmp`
+--
+
+DROP TABLE IF EXISTS `tmp`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `tmp` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `bot` varchar(40) NOT NULL,
+  `text` text NOT NULL,
+  `created` datetime NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=84 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `user`
+--
+
+DROP TABLE IF EXISTS `user`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `user` (
+  `user_id` int(11) NOT NULL AUTO_INCREMENT,
+  `token` varchar(1000) NOT NULL,
+  `last_update` datetime NOT NULL,
+  `email` varchar(1000) NOT NULL,
+  `all_emails` varchar(10000) NOT NULL,
+  `github_id` int(11) NOT NULL,
+  `github_login` varchar(1000) NOT NULL,
+  `avatar_url` varchar(1000) NOT NULL,
+  `public_repos` int(11) NOT NULL,
+  `total_private_repos` int(11) NOT NULL,
+  `owned_private_repos` int(11) NOT NULL,
+  `followers` int(11) NOT NULL,
+  `following` int(11) NOT NULL,
+  PRIMARY KEY (`user_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `wallet`
+--
+
+DROP TABLE IF EXISTS `wallet`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `wallet` (
+  `wallet_id` int(11) NOT NULL AUTO_INCREMENT,
+  `user_id` int(11) NOT NULL,
+  `bitcoin_address` varchar(1000) NOT NULL,
+  `asset_address` varchar(1000) NOT NULL,
+  `private_key_hash` varchar(1000) NOT NULL,
+  `repo` varchar(1000) NOT NULL,
+  `created` datetime NOT NULL,
+  `last_sniff_date` datetime NOT NULL,
+  `deposit_amount` float NOT NULL,
+  `confirmations` int(11) NOT NULL,
+  `last_transaction_hash` varchar(500) NOT NULL,
+  PRIMARY KEY (`wallet_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=28 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
+
+/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
+/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
+/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
+
+-- Dump completed on 2015-08-19  2:54:59

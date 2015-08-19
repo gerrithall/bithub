@@ -8,6 +8,9 @@
  *
  */
 
+if(!file_exists("../config/node.conf.php")) {
+	die(file_get_contents("install.html"));
+}
 require_once('../config/node.conf.php');
 
 mb_internal_encoding("UTF-8");

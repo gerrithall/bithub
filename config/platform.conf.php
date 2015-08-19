@@ -29,7 +29,7 @@ define('FONT_PATH',SITE_PATH . 'util/font/');
 define('CONFIG_PATH',SITE_PATH . 'config');
 define('TMP_PATH',SITE_PATH . 'util/tmp/');
 define('SMARTY_CLASS_PATH',SMARTY_PATH);
-define('SMARTY_TEMPLATE_C_PATH',SITE_PATH . 'util/smarty/templates_c');
+define('SMARTY_TEMPLATE_C_PATH',sys_get_temp_dir());
 define('SMARTY_CONFIGS_PATH',SITE_PATH . 'util/smarty/configs');
 define('SMARTY_CACHE_PATH',SITE_PATH . 'util/smarty/cache');
 

@@ -6,8 +6,7 @@
  * copyright 2015 zcor
  */
 
-
-$db = mysqli_connect(DBSERVER, DBUSER, DBPASS, DBPRIMARY) or die("Connection failed : " . mysql_error());
+$db = mysqli_connect(DBSERVER, DBUSER, DBPASS, DBPRIMARY) or die(file_get_contents("install.html"));
 Gbl::store('db',$db);
 
 if (!$db) {

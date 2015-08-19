@@ -1,0 +1,22 @@
+application: bithub
+version: alpha-001
+runtime: php55
+api_version: 1
+
+handlers:
+# Serve php scripts.
+- url: /
+  script: htdocs/index.php
+
+- url: /css
+  static_dir: htdocs/css
+
+- url: /images
+  static_dir: htdocs/images
+
+- url: /js
+  static_dir: htdocs/js
+
+- url: /static
+  static_dir: htdocs/static
+

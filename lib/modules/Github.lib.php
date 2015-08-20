@@ -61,9 +61,11 @@ class Github {
 		}
 	}
 	public function get_featured_projects() {
-		$q = query("SELECT * FROM asset ORDER BY date_created DESC LIMIT 4");
+		$q = query("SELECT a.*, r.* FROM asset a LEFT JOIN repo r ON a.name = r.name   ORDER BY date_created DESC LIMIT 4");
 		while($r = fa($q)) {
+			$r['contributors'] = query_count("SELECT DISTINCT user_id FROM commit_log WHERE repo_id = '".$r['repo_id']."'");
 			$arr[] = $r;
+			
 		}
 		return($arr);
 	}

@@ -181,13 +181,13 @@ class Asset {
 		
 		if($log) $this->dump_log();
 		if($this->json_response->Message == 'Error') {
-			mail(ERROR_EMAIL, "Coinprism Error", print_r($this->json_response,1));
+			//mail(ERROR_EMAIL, "Coinprism Error", print_r($this->json_response,1));
 			die("API ERROR: ".$this->json_response->ErrorCode);
 		}
 		if(!$this->json_error) {
 			return($ret);
 		} else {
-			mail(ERROR_EMAIL, "Bithub Error", $this->json_error); 
+			//mail(ERROR_EMAIL, "Bithub Error", $this->json_error); 
 			die($this->json_error);
 		}
 

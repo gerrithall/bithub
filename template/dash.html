@@ -39,7 +39,8 @@
 			  {elseif $r.status}
 			  <td>
 				Receiving BTC at {$r.address}
-			  </td>
+				<img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data={$r.address}" />
+				</td>
 			  <td>
 			  	<a class='button' href='/mint/{$r.fullname}'>Pending</a>
 			  </td>

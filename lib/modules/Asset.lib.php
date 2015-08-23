@@ -18,8 +18,10 @@ class Asset {
 	}
 	public function store_asset($repo) {
 		$G = new Github;
-		$G->load_repo($repo);
-
+		$ret = $G->load_repo($repo);
+		if(!$ret) {
+			return 0;
+		}
 		$public_id = HOTWALLET_ASSET; // Store a temp asset id, then update it later I guess
 		$qi = "INSERT INTO asset (public_id, name_short, name, contract_url, issuer, description, description_mime, type, divisibility, link_to_website, icon_url, image_url, version, date_created) VALUES 
 				(
@@ -217,6 +219,7 @@ class Asset {
 			  \"metadata\": \"u=http://gobithub.com/a/". $repo_id  ."\"
 			}";
 		$ret = $this->coinprism_call('issueasset', $pf);
+		
 		if(!$this->store_asset_id($repo)) {
 			die("{'error': 'Invalid Asset Id'}");
 		}
@@ -291,45 +294,6 @@ class Asset {
 	
 		}
 	}
-	public function issue_asset_old() {
-		$ch = curl_init();
-
-		curl_setopt($ch, CURLOPT_URL, "https://api.coinprism.com/v1/issueasset?format=json");
-		curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
-		curl_setopt($ch, CURLOPT_HEADER, TRUE);
-
-		curl_setopt($ch, CURLOPT_POST, TRUE);
-		$pf = "{
-			  \"fees\": 1000,
-    			  \"from\": \"".HOTWALLET_ADDR."\",
-      			  \"address\": \"".HOTWALLET_ASSET."\",
- 
-			  \"amount\": \"500\",
-			  \"metadata\": \"u=http://gobithub.com/asset/1\"
-			}";
-		curl_setopt($ch, CURLOPT_POSTFIELDS, $pf );
-
-		curl_setopt($ch, CURLOPT_HTTPHEADER, array(
-			  "Content-Type: application/json"
-			));
-
-		$response = curl_exec($ch);
-
-		$this->curlinfo = curl_getinfo($ch);
-		$header_size = curl_getinfo($ch, CURLINFO_HEADER_SIZE);
-		$this->header = substr($ret, 0, $header_size);
-		$ret = substr($response, $header_size);
-
-		$arr = json_decode($ret);
-		$this->json_response = $arr;
-		$this->json_error = json_last_error();
-		$this->raw_response = $ret;
-		$this->dump_log();	
-		die($ret);
-		curl_close($ch);
-		
-		var_dump($this->json_response);
-		}
 
 		function varint($siglen) {
 			if($siglen < 256) {

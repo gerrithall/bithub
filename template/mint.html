@@ -6,7 +6,7 @@
 		<h1>{$project_name}</h1>
    		<h2>{if $repo.status == 4}Join the Project{else}Mint Your Coin{/if}</h2>
 		<a href='http://github.com/{$project_name}' target='_blank'><i class='fa fa-github'></i> {$project_name}</a>
-
+		
 	</div>
   </div>
    <div class='row'>
@@ -75,7 +75,8 @@
    {else}
   	<div class='four columns centered'>
 		<h3>1.</h3>
-		Send BTC to {$btc_address} (minimum .01).
+		Send at least 0.01 BTC to {$btc_address} <br/>
+		<img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data={$btc_address}" />
 	</div>
    	<div class='four columns centered'>
 		<h3>2.</h3>

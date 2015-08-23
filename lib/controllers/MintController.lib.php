@@ -15,7 +15,6 @@ class MintController extends Controller {
 	public function __construct() {
 		$this->_initialize();
 	}
-
 	protected function _initialize() {
 		$this->state['page'] = 'mint';
 		
@@ -34,18 +33,35 @@ class MintController extends Controller {
 		
 		$this->state['repo'] = $G->load_stored_repo($project_name);
 		if($this->state['repo']['status'] == 4) {
+			$repo_owner = $this->state['repo']['user_id'];
+			
+			$this->state['is_owner'] = 0;
+			if(is_numeric($repo_owner) && $repo_owner > 0 && $_SESSION['user']['github_id'] == $repo_owner) {
+				$this->state['is_owner'] = 1;
+				if(is_numeric($_POST['kick_offset']) && $_POST['kick_offset'] > 0) {
+					$G->kick_start_date($_POST['kick_offset']);
+				}
+			}
+
+	
 			if(!$this->state['repo']['public']) {
 				$G->load_user();
 			}
 			$G->load_coin_owners($project_name);
+
+			
 			$this->state['date_minted'] = $G->date_minted;
 			$this->state['last_commit'] = strftime("%b %d", strtotime(query_grab("SELECT max(commit_date) FROM commit_log WHERE repo = '".$this->state['repo']['name']."'")));
 			$this->state['asset_hash'] = $G->asset_hash;
 			$this->state['cal'] = $G->schedule;
 			$this->state['contributors'] = $G->contributors;
-			$this->state['equity'] = $G->equity;
+			$this->state['share'] = $G->share;
 			$this->state['today'] = $G->today;
-
+					
+			if($this->state['is_owner']) {
+				$this->state['valid_coin_change_dates'] = $G->get_valid_coin_change_dates();
+			}
+			
 		} else {
 		
 		$G->load_user();

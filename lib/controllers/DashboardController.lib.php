@@ -21,6 +21,11 @@ class DashboardController extends Controller {
 	}
 	
 	public function run() {
+		//require_once(MODULES_PATH . '/Asset.lib.php');
+		//$A = new Asset;
+		//$A->issue_asset('moloco/dash');
+		
+		
 		$G = new Github;
 		$G->load_user();
 		$G->load_repos();

@@ -16,7 +16,37 @@ class Github {
 
 	public function __construct($h) {
 	}
-	
+	public function get_valid_coin_change_dates() {
+				$start_date = $this->date_minted;
+				$clear = 1;
+				$i = 0;
+				foreach($this->schedule AS $k => $v) {
+					if(strlen(key($v)) > 0 && key($v) != $_SESSION['user']['github_login']) {
+						$clear = 0;
+					}
+					if($k == $this->today) {
+						$clear = 0;
+					}
+					if($clear) {
+						$dates[$i] = $k;
+					}
+					$i++;
+				}
+
+		return($dates);
+
+	}
+	public function kick_start_date($offset){
+		$this->load_coin_owners($this->repo_name);
+		$ok_dates = $this->get_valid_coin_change_dates();
+		if(array_key_exists($offset, $ok_dates)) { 
+			query("UPDATE asset SET date_created = DATE_ADD(date_created, INTERVAL $offset DAY) WHERE name = '".escape($this->repo_name)."'");	
+			$this->date_minted = query_grab("SELECT date_created FROM asset WHERE name = '".escape($this->repo_name)."'");	
+			$this->load_coin_owners($this->repo_name);
+		} else { 
+			return(0);
+		}
+	}
 	public function load_coin_owners($repo) {
 		$df = "%a, %b %e";
 		$asset = query_assoc("SELECT * FROM asset WHERE name = '".escape($repo)."'");
@@ -40,17 +70,17 @@ class Github {
 				$tot += 1;
 			}
 			foreach($v AS $k2=>$v2) {
-				$equity[$k2] += (1 / count($v));	
+				$share[$k2] += (1 / count($v));	
 			}
 			
 		}
 		if($tot >0) {
-		foreach($equity AS $k => $v) {
-			$equity[$k] = round(100* $v / $tot, 1);
+		foreach($share AS $k => $v) {
+			$share[$k] = round(100* $v / $tot, 1);
 		}
 		}
 		$this->today = strftime($df, time());
-		$this->equity = $equity;
+		$this->share = $share;
 		$this->contributors = $contributors;
 		$this->schedule = $cal;
 		
@@ -307,8 +337,10 @@ class Github {
 
 	}
 	public function load_stored_repo($repo) {
+		$this->repo_name = $repo;
 		return(query_assoc("SELECT * FROM repo WHERE name = '".escape($repo)."'")); 
 	}
+	//Pulls from Github
 	public function load_repo($repo) {
 		$this->token = query_grab("SELECT token FROM repo r LEFT JOIN user u ON r.user_id = u.github_id WHERE r.name = '".escape($repo)."'");
 		$this->hub = $repo;

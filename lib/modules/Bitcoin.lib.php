@@ -130,7 +130,6 @@ class Bitcoin {
 			return;
 		}
 		$url = "http://btc.blockr.io/api/v1/address/info/".implode($addr,",")."?confirmations=0";
-		
 		$ch = curl_init();
 		curl_setopt($ch, CURLOPT_URL, $url);
 		curl_setopt($ch, CURLOPT_HEADER, 1);

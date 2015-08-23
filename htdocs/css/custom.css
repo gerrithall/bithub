@@ -140,6 +140,14 @@ hr.sub {border: 0; height: 0; border-top: 1px solid rgba(0, 0, 0, 0.1); border-b
 .admin select {
 
 }
+.lightblue-bg {
+	background-color: #B2EBF2;
+	color: #212121;
+	padding: 10px;
+}
+.light-blue {
+	color: #B2EBF2;
+}
 .orange {
 	color: #FF9800;
 }

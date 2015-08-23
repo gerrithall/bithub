@@ -46,7 +46,7 @@ $( "#permission" )
 {/literal}
 	</div>
 	<div class='six columns centered'>
-		<a id='login-button' class="button button-primary" href="https://github.com/login/oauth/authorize?client_id={$smarty.const.GITHUB_CLIENTID}&redirect_uri={$github_redirect|escape:'url'}&scope=user:email,read:org">
+		<a id='login-button' class="button button-primary" href="https://github.com/login/oauth/authorize?client_id={$smarty.const.GITHUB_CLIENTID}&redirect_uri={$github_redirect|escape:'url'}&scope=user:email,repo,read:org">
 			<i style='color: #FFF;' class="fa fa-github fa-3x"></i> <span>Login with GitHub</span>
 		</a>
 	</div>

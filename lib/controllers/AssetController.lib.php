@@ -28,9 +28,14 @@ class AssetController extends Controller {
 		$paths = explode("/", $path);
 		$secret = $paths[2];	
 
-		if($paths[1] == 'a' && is_numeric($paths[2])) {
+		if(($paths[1] == 'a' || $paths[1] == 'asset') && is_numeric($paths[2]) && !$paths[3]) {
 		
 			$json = $A->display_asset_definition($paths[2]);
+			header("Content-type: text/plain");
+			die($json);
+		}
+		if(($paths[1] == 'asset' || $paths[1] == 'a') && strlen($paths[2]) > 0 && strlen($paths[3]) > 0) {
+			$json = $A->display_asset_definition( query_grab("SELECT asset_id FROM asset WHERE name = '".escape($paths[2]."/".$paths[3])."'" ));	
 			header("Content-type: text/plain");
 			die($json);
 		}

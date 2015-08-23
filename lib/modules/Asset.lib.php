@@ -23,6 +23,12 @@ class Asset {
 			return 0;
 		}
 		$public_id = HOTWALLET_ASSET; // Store a temp asset id, then update it later I guess
+		
+		//Only place we set the repo to public
+		if(!$G->json_response->private) {
+			query("UPDATE repo SET public = 1 WHERE name = '".escape($repo)."'");
+		}
+
 		$qi = "INSERT INTO asset (public_id, name_short, name, contract_url, issuer, description, description_mime, type, divisibility, link_to_website, icon_url, image_url, version, date_created) VALUES 
 				(
 					'" . $public_id . "',
@@ -40,7 +46,6 @@ class Asset {
 					'1.0', 
 					NOW()
 					)";
-
 			query($qi);
 			return(mysqli_insert_id(Gbl::get('db')));
 	}
@@ -105,7 +110,7 @@ class Asset {
 		    "X-Coinprism-Username: ".COINPRISM_USERNAME,
 		    "X-Coinprism-Password: ".COINPRISM_PASSWORD
 		));
-
+		
 		$response = curl_exec($ch);
 		
 		$this->curlinfo = curl_getinfo($ch);

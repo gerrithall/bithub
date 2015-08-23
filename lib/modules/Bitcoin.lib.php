@@ -104,7 +104,6 @@ class Bitcoin {
 		if($this->get_saved_address($repo)) {
 			return(1);	
 		}
-			
 		$A = new Asset;
 		$res = $A->create_coinprism_address($repo);
 		if($res) {

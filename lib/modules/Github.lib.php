@@ -213,10 +213,12 @@ class Github {
 			"Accept: application/vnd.github.v3+json", 
 			"Authorization: token ".$this->token 
 			));
+		
 		curl_setopt($ch, CURLOPT_USERAGENT, $this->useragent);
 		curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
 		
 		$ret = curl_exec($ch);
+		
 		$this->curlinfo = curl_getinfo($ch);
 		
 		$header_size = curl_getinfo($ch, CURLINFO_HEADER_SIZE);
@@ -224,11 +226,15 @@ class Github {
 		$ret = substr($ret, $header_size);
 
 		$arr = json_decode($ret);
+		
 		$this->json_response = $arr;
 		$this->json_error = json_last_error();
 		$this->raw_response = $ret;
-
 		$this->dump_log();
+		if($this->json_response->message) {
+			$this->error = $this->json_response->message;
+			return 0;
+		}
 		return(1);	
 	}
 	public function reward_contributors() {
@@ -304,10 +310,13 @@ class Github {
 		return(query_assoc("SELECT * FROM repo WHERE name = '".escape($repo)."'")); 
 	}
 	public function load_repo($repo) {
+		$this->token = query_grab("SELECT token FROM repo r LEFT JOIN user u ON r.user_id = u.github_id WHERE r.name = '".escape($repo)."'");
 		$this->hub = $repo;
 		$url = "https://api.github.com/repos/" . $this->hub;
-		$this->api_call($url);
-		return(1);		
+		
+		$ret = $this->api_call($url);
+			
+		return($ret);		
 	}
 	public function get_contributors() {
 		$url = "https://api.github.com/repos/" . $this->hub;

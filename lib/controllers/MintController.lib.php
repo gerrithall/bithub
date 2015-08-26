@@ -71,7 +71,7 @@ class MintController extends Controller {
 							'asset_hash' => $G->asset_hash,
 							'coin_ownership' => $G->share,
 							'commits' => $G->contributors,
-							'deposit' => $G->deposit,
+							'deposit' => $G->deposit_amount,
 							'last_commit' => $G->last_commit,
 							'commit_log' => $G->schedule
 							), JSON_PRETTY_PRINT

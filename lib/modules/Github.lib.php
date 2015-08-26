@@ -52,7 +52,7 @@ class Github {
 		$asset = query_assoc("SELECT a.*, w.deposit_amount FROM asset a LEFT JOIN wallet w ON a.name = w.repo  WHERE a.name = '".escape($repo)."'");
 		$this->date_minted = $asset['date_created'];
 		$this->asset_hash = $asset['transaction_hash'];
-		$this->desposit_amount = $asset['deposit_amount'];	
+		$this->deposit_amount = $asset['deposit_amount'];
 		$q = query_load("SELECT * FROM commit_log WHERE repo = '".escape($repo)."'");
 			
 		for($i = 0; $i <=29; $i++) {

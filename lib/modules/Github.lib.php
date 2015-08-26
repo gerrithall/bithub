@@ -49,9 +49,10 @@ class Github {
 	}
 	public function load_coin_owners($repo) {
 		$df = "%a, %b %e";
-		$asset = query_assoc("SELECT * FROM asset WHERE name = '".escape($repo)."'");
+		$asset = query_assoc("SELECT a.*, w.deposit_amount FROM asset a LEFT JOIN wallet w ON a.name = w.repo  WHERE a.name = '".escape($repo)."'");
 		$this->date_minted = $asset['date_created'];
 		$this->asset_hash = $asset['transaction_hash'];
+		$this->desposit_amount = $asset['deposit_amount'];	
 		$q = query_load("SELECT * FROM commit_log WHERE repo = '".escape($repo)."'");
 			
 		for($i = 0; $i <=29; $i++) {
@@ -83,7 +84,7 @@ class Github {
 		$this->share = $share;
 		$this->contributors = $contributors;
 		$this->schedule = $cal;
-		
+		$this->asset_id = $asset['asset_id'];
 	}
 	public function store_auth_details($token) {
 		if(!$_SESSION['user']['email']) {

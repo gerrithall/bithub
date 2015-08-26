@@ -34,7 +34,7 @@ class MintController extends Controller {
 		$this->state['repo'] = $G->load_stored_repo($project_name);
 		if($this->state['repo']['status'] == 4) {
 			$repo_owner = $this->state['repo']['user_id'];
-			
+				
 			$this->state['is_owner'] = 0;
 			if(is_numeric($repo_owner) && $repo_owner > 0 && $_SESSION['user']['github_id'] == $repo_owner) {
 				$this->state['is_owner'] = 1;
@@ -51,6 +51,8 @@ class MintController extends Controller {
 
 			
 			$this->state['date_minted'] = $G->date_minted;
+			$this->state['deposit'] = $G->deposit_amount;	
+
 			$this->state['last_commit'] = strftime("%b %d", strtotime(query_grab("SELECT max(commit_date) FROM commit_log WHERE repo = '".$this->state['repo']['name']."'")));
 			$this->state['asset_hash'] = $G->asset_hash;
 			$this->state['cal'] = $G->schedule;
@@ -61,7 +63,21 @@ class MintController extends Controller {
 			if($this->state['is_owner']) {
 				$this->state['valid_coin_change_dates'] = $G->get_valid_coin_change_dates();
 			}
-			
+			if($paths[4] == 'json') {
+				header("Content-type: text/json");
+				echo json_encode(array('name' => $project_name,
+							'date_minted' => $G->date_minted,
+							'asset_url' => SITE_URL.'/a/'.$G->asset_id,
+							'asset_hash' => $G->asset_hash,
+							'coin_ownership' => $G->share,
+							'commits' => $G->contributors,
+							'deposit' => $G->deposit,
+							'last_commit' => $G->last_commit,
+							'commit_log' => $G->schedule
+							), JSON_PRETTY_PRINT
+							);
+				die();	
+			}
 		} else {
 		
 		$G->load_user();

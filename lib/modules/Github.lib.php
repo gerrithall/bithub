@@ -219,8 +219,6 @@ class Github {
 		$this->json_error = json_last_error();
 		$this->raw_response = $ret;
 		
-		$this->dump_log();
-
 		if($this->json_response->access_token) {
 			$_SESSION['token'] = $this->json_response->access_token;
 			$this->token = $_SESSION['token'];
@@ -261,7 +259,7 @@ class Github {
 		$this->json_response = $arr;
 		$this->json_error = json_last_error();
 		$this->raw_response = $ret;
-		$this->dump_log();
+		
 		if($this->json_response->message) {
 			$this->error = $this->json_response->message;
 			return 0;

@@ -1,5 +1,4 @@
 <?php
-require_once(MODULES_PATH.'/SendGrid.lib.php');
 require_once(MODULES_PATH.'/SmtpApiHeader.lib.php');
 require_once(MODULES_PATH.'/Swift-4.0.6/lib/swift_required.php');
 

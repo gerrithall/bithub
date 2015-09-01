@@ -55,6 +55,7 @@ require_once(MODULES_PATH . "/Database.php");
 require_once(MODULES_PATH . '/Log.lib.php');
 require_once(MODULES_PATH . '/Cleaner.lib.php');
 require_once(MODULES_PATH . '/Scout.lib.php');
+require_once(MODULES_PATH . '/Email.lib.php');
 #require_once(MODULES_PATH . '/HTTP.lib.php');
 #require_once(MODULES_PATH . '/Cookie.lib.php');
 #require_once(MODULES_PATH . '/CookieStore.lib.php');
@@ -102,6 +103,11 @@ define('AUTH_COOKIE_DOMAIN', DOMAIN);
 
 define('DEFAULT_MINER_FEE', 1000);
 define('DEFAULT_DIVISIBILITY', 6);
+define("ERROR_EMAIL", "g@gobithub.com");
+
+define('SENDGRID_USERNAME', 'gobithub');
+define('SENDGRID_PASSWORD', 'junkmail123');
+
 
 # Controllers
 require_once(CONFIG_PATH . '/pages.conf.php');

@@ -29,6 +29,8 @@ class Log {
 			
 			$message = "[".$log_level."] ". strftime("%X %x", time()). "\n".$message . "\n";
 			file_put_contents($this->_log_filename, $message, FILE_APPEND | LOCK_EX);
+			$E = new Email;
+			$E->queue_email(ERROR_EMAIL, 'Bithub', 'dev@gobithub.com', 'Bithub: ('.$this->_log_level.')', $message, $message);
 		}
 	}
 }

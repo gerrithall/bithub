@@ -79,6 +79,13 @@ class Email {
 			  print_r($failures);
 			  }
 	}
+	
+	public function load_email($email, $vars, $txt=0) {
+		require_once(CONTROLLERS_PATH.'/EmailTemplateController.lib.php');
+		$et = new EmailTemplateController;
+		
+		return($email);
+	}
 
 
 	

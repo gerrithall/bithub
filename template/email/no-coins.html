@@ -1,0 +1,19 @@
+{include file="email/header.html"}
+
+Hey,<br/>
+<br/>
+We were going you an update on your Bithub earnings, but it looks like you don't have any.  Oh no!<br/>
+<br/>
+You could try joining one of these public projects:
+<ul>
+	<li><a href='{$smarty.const.SITE_URL}/mint/{$proj.0.name}'>{$proj.0.name}</a>: {$proj.0.description}</li>
+	<li><a href='{$smarty.const.SITE_URL}/mint/{$proj.1.name}'>{$proj.1.name}</a>: {$proj.1.description}</li>
+	<li><a href='{$smarty.const.SITE_URL}/mint/{$proj.2.name}'>{$proj.2.name}</a>: {$proj.2.description}</li>
+	<li><a href='{$smarty.const.SITE_URL}/mint/{$proj.3.name}'>{$proj.3.name}</a>: {$proj.3.description}</li>
+</ul>
+<br/>
+If you have your own projects, you can also simply <a href='http://gobithub.com/'>mint a coin</a> for one of your repositories.
+<br/>
+<br/>
+
+{include file="email/footer.html"}

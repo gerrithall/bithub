@@ -1,0 +1,22 @@
+{include file="email/header.html"}
+
+Hey,<br/>
+<br/>
+Here's your current earnings on Bithub:
+<ul>
+{foreach from=$coins item="coin" key="key"}
+	<li><a href='{$smarty.const.SITE_URL}/mint/{$key}'>{$key}</a>: {$coin}%</li>
+{/foreach}
+</ul>
+<br/>
+If you're interested in joining more projects, here's the top projects on Bithub right now:
+<ul>
+{foreach from=$proj item="p" key="key"}
+	<li><a href='{$smarty.const.SITE_URL}/mint/{$pi.name}'>{$p.name}</a>: {$p.description}</li>
+{/foreach}
+</ul>
+Thanks for using <a href='{$smarty.const.SITE_URL}'>Bithub</a>!
+<br/>
+<br/>
+
+{include file="email/footer.html"}

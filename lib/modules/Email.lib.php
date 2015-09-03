@@ -83,7 +83,7 @@ class Email {
 	public function load_email($email, $vars, $txt=0) {
 		require_once(CONTROLLERS_PATH.'/EmailTemplateController.lib.php');
 		$et = new EmailTemplateController;
-		
+		$email = $et->load_email($email, $vars, $txt);	
 		return($email);
 	}
 

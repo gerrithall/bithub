@@ -47,8 +47,8 @@ class Email {
 		$text = $email_data['plaintext'];
 		$html = $email_data['html'];
 
-		$username = "gerrit@rezscore.com";
-		$password = 're$ume$1';
+		$username = SENDGRID_USERNAME;
+		$password = SENDGRID_PASSWORD;
 
 		$transport = Swift_SmtpTransport::newInstance('smtp.sendgrid.net', 25);
 		$transport ->setUsername($username);

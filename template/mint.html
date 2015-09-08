@@ -4,18 +4,28 @@
   <div class='row'>
   	<div class='twelve columns centered'>
 		<h1>{$project_name}</h1>
-   		<h2 class='light-blue'>{if $repo.status == 4}Join the Project{else}Mint Your Coin{/if}</h2>
+		{if $repo.status == 4}
+		<div style='background-color: #FFF; color: #212121; padding: 5px; border: 1px solid #FF9800;'>
+		Bithub incentives your teams' code commits by organizing project-based coins.<br/>
+		Every day, 1/30 of the project coin will be earned evenly among everybody who commits to the repository.  <br/>If you would like to earn this coin, <a href='http://github.com/{$project_name}' target='_blank' style='color: #FF9800;'>please contact the repo owner</a> for details.</div><Br/>
+		{else}
+		<h2 class='light-blue'>Mint Your Coin</h2>
+		{/if}
+
+
 		<a href='http://github.com/{$project_name}' target='_blank'><i class='fa fa-github'></i> {$project_name}</a>
+
 		
 	</div>
   </div>
    <div class='row'>
    {if $repo.status == 4}
  	<div class='twelve columns centered'>
-		Coin minted on {$date_minted} <br/>
-		<a href='http://btc.blockr.io/tx/info/{$asset_hash}' target='_blank'>{$asset_hash}</a>
-		<br/><br/>
+		Coin minted on {$date_minted} with {$deposit} BTC<br/>
+		<a href='https://coinprism.info/tx/{$asset_hash}' target='_blank'>{$asset_hash}</a> &bull; 
+		<a href='http://{$smarty.const.DOMAIN}/a/{$project_name}' target='_blank'>JSON Definition</a>
 
+		<br/><br/>
 		<strong>Top Earners:</strong>
 		<center>
 		<table class='commits'>
@@ -37,6 +47,7 @@
 		
 		</center>
 		<hr>
+
 		<center><strong>History</strong>
 		<table class='commits' width='100%'>
 	 	  <tr>

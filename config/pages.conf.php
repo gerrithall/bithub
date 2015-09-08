@@ -8,7 +8,8 @@ $controller_array = array(
 	'mint' => 'MintController',
 	'dashboard' => 'DashboardController',
 	'logout' => 'LogoutController',
-	'btc' => 'BTCController'
+	'btc' => 'BTCController',
+	'terms' => 'TermsController'
 );
 
 Gbl::store('controllers_array',$controller_array);

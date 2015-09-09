@@ -9,6 +9,7 @@ $controller_array = array(
 	'dashboard' => 'DashboardController',
 	'logout' => 'LogoutController',
 	'btc' => 'BTCController',
+	'donotemail' => 'UnsubscribeController',
 	'terms' => 'TermsController'
 );
 

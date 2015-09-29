@@ -105,9 +105,6 @@ define('DEFAULT_MINER_FEE', 1000);
 define('DEFAULT_DIVISIBILITY', 6);
 define("ERROR_EMAIL", "g@gobithub.com");
 
-define('SENDGRID_USERNAME', 'gobithub');
-define('SENDGRID_PASSWORD', 'junkmail123');
-
 
 # Controllers
 require_once(CONFIG_PATH . '/pages.conf.php');
